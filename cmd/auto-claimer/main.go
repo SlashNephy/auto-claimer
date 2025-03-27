@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"log/slog"
+	"os"
 
 	"github.com/SlashNephy/auto-claimer/pipeline"
 	"github.com/samber/do/v2"
@@ -15,5 +16,6 @@ func main() {
 	batch := do.MustInvoke[pipeline.BatchRedeemCodesPipeline](injector)
 	if _, err := batch.Do(ctx, &pipeline.BatchRedeemCodesInput{}); err != nil {
 		slog.ErrorContext(ctx, "failed to execute batch", slog.String("error", err.Error()))
+		os.Exit(1)
 	}
 }
