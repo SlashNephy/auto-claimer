@@ -25,3 +25,4 @@ go.work.sum
 .env
 
 auto-claimer.db
+locale/translate.*.yaml

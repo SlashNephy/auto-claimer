@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/SlashNephy/auto-claimer/domain/hoyoverse"
+	"github.com/disgoorg/disgo/discord"
 )
 
 type Workflow[Command, Event any] interface {
@@ -39,5 +40,17 @@ type (
 	}
 	HonkaiStarrailCodeRedeemedEvent struct {
 		RedeemedCode *hoyoverse.Code
+	}
+)
+
+type (
+	NotifyHoYoverseCodeRedeemedWorkflow Workflow[*NotifyHoYoverseCodeRedeemedCommand, *HoYoverseCodeRedeemedNotifiedEvent]
+	NotifyHoYoverseCodeRedeemedCommand  struct {
+		DiscordWebhookURL string
+		RedeemedCode      *hoyoverse.Code
+		Account           *hoyoverse.GameAccount
+	}
+	HoYoverseCodeRedeemedNotifiedEvent struct {
+		DiscordMessage *discord.Message
 	}
 )

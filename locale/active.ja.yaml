@@ -1,0 +1,12 @@
+Game.HonkaiStarrail:
+    hash: sha1-c46cc2993d4a72a231b027a7732a1c6cd26bd09b
+    other: 崩壊:スターレイル
+HoYoverseCodeRedeemedNotification.Author:
+    hash: sha1-902b689048ffe17c6961851b0f9ae51ef2a2f584
+    other: '{{.Nickname}} (UID:{{.UID}})'
+HoYoverseCodeRedeemedNotification.RewardsField:
+    hash: sha1-2f4f4b7fbc81bc11d4aa9263fddf484f1eb90d99
+    other: 報酬
+HoYoverseCodeRedeemedNotification.Title:
+    hash: sha1-98d325ab14d12e3da8e9de750d946297c929c3b9
+    other: '`{{.Code}}` を引き換えました!'

@@ -1,0 +1,4 @@
+Game.HonkaiStarrail: 'Honkai: Star Rail'
+HoYoverseCodeRedeemedNotification.Author: '{{.Nickname}} (UID:{{.UID}})'
+HoYoverseCodeRedeemedNotification.RewardsField: Rewards
+HoYoverseCodeRedeemedNotification.Title: '`{{.Code}}` redeemed!'

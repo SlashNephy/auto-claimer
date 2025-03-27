@@ -18,6 +18,7 @@ func NewRedeemHonkaiStarrailCodesPipeline(i do.Injector) (RedeemHonkaiStarrailCo
 	query := do.MustInvoke[query.HonkaiStarrailCodeQuery](i)
 	login := do.MustInvoke[workflow.LoginHoYoverseAccountWorkflow](i)
 	redeemer := do.MustInvoke[workflow.RedeemHonkaiStarrailCodeWorkflow](i)
+	notifier := do.MustInvoke[workflow.NotifyHoYoverseCodeRedeemedWorkflow](i)
 
 	return NewPipelineFunc(func(ctx context.Context, input *RedeemHonkaiStarrailCodesInput) (*RedeemHonkaiStarrailCodesOutput, error) {
 		availableCodes, err := query.ListAvailableCodes(ctx)
@@ -73,6 +74,18 @@ func NewRedeemHonkaiStarrailCodesPipeline(i do.Injector) (RedeemHonkaiStarrailCo
 				slog.String("account_name", account.Nickname),
 				slog.String("account_region", account.Region),
 			)
+
+			if input.DiscordWebhookURL != nil {
+				_, err = notifier.Do(ctx, &workflow.NotifyHoYoverseCodeRedeemedCommand{
+					DiscordWebhookURL: *input.DiscordWebhookURL,
+					RedeemedCode:      redeemed.RedeemedCode,
+					Account:           account,
+				})
+				if err != nil {
+					return err
+				}
+			}
+
 			return nil
 		}
 

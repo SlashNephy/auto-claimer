@@ -23,12 +23,13 @@ type (
 	RedeemHonkaiStarrailCodesInput    struct {
 		HoYoverseEmail    string
 		HoYoversePassword string
+		DiscordWebhookURL *string
 	}
 	RedeemHonkaiStarrailCodesOutput struct{}
 )
 
 type (
 	BatchRedeemCodesPipeline Pipeline[*BatchRedeemCodesInput, *BatchRedeemCodesOutput]
-	BatchRedeemCodesInput struct{}
-	BatchRedeemCodesOutput struct{}
+	BatchRedeemCodesInput    struct{}
+	BatchRedeemCodesOutput   struct{}
 )
