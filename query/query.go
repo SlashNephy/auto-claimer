@@ -11,14 +11,17 @@ type RedeemedCodeQuery interface {
 	ListRedeemedCodes(ctx context.Context, account entity.Account) ([]string, error)
 }
 
-type HonkaiStarrailCodeQuery interface {
-	ListAvailableCodes(ctx context.Context) ([]*hoyoverse.Code, error)
+type HonkaiStarrailQuery interface {
+	ListHonkaiStarrailGameAccounts(ctx context.Context) ([]*hoyoverse.GameAccount, error)
+	ListAvailableHonkaiStarrailCodes(ctx context.Context) ([]*hoyoverse.Code, error)
 }
 
-type GenshinImpactCodeQuery interface {
-	ListAvailableCodes(ctx context.Context) ([]*hoyoverse.Code, error)
+type GenshinImpactQuery interface {
+	ListGenshinImpactGameAccounts(ctx context.Context) ([]*hoyoverse.GameAccount, error)
+	ListAvailableGenshinImpactCodes(ctx context.Context) ([]*hoyoverse.Code, error)
 }
 
-type ZenlessZoneZeroCodeQuery interface {
-	ListAvailableCodes(ctx context.Context) ([]*hoyoverse.Code, error)
+type ZenlessZoneZeroQuery interface {
+	ListZenlessZoneZeroGameAccounts(ctx context.Context) ([]*hoyoverse.GameAccount, error)
+	ListAvailableZenlessZoneZeroCodes(ctx context.Context) ([]*hoyoverse.Code, error)
 }

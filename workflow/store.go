@@ -9,11 +9,18 @@ import (
 
 type LoginHoYoverseAccountStore interface {
 	Login(ctx context.Context, email, password string) error
-	ListGameAccounts(ctx context.Context) ([]*hoyoverse.GameAccount, error)
 }
 
 type RedeemHonkaiStarrailCodeStore interface {
 	RedeemHonkaiStarrailCode(ctx context.Context, account *hoyoverse.GameAccount, code *hoyoverse.Code) error
+}
+
+type RedeemGenshinImpactCodeStore interface {
+	RedeemGenshinImpactCode(ctx context.Context, account *hoyoverse.GameAccount, code *hoyoverse.Code) error
+}
+
+type RedeemZenlessZoneZeroCodeStore interface {
+	RedeemZenlessZoneZeroCode(ctx context.Context, account *hoyoverse.GameAccount, code *hoyoverse.Code) error
 }
 
 type MarkCodeAsRedeemedStore interface {

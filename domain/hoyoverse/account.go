@@ -6,7 +6,7 @@ import (
 	"github.com/SlashNephy/auto-claimer/domain/entity"
 )
 
-const HonkaiStarrailListAccountsURL = "https://api-account-os.hoyoverse.com/account/binding/api/getUserGameRolesOfRegionByCookieToken?game_biz=hkrpg_global"
+const ListAccountsURL = "https://api-account-os.hoyoverse.com/account/binding/api/getUserGameRolesOfRegionByCookieToken"
 
 type GameAccount struct {
 	Game     entity.Game
@@ -48,8 +48,8 @@ type ListAccountsResponseData struct {
 var ListAccountsHeaders = map[string]string{
 	"Accept":             "*/*",
 	"Accept-Language":    "en",
-	"Origin":             "https://hsr.hoyoverse.com",
-	"Referer":            "https://hsr.hoyoverse.com/",
+	"Origin":             "https://account.hoyoverse.com",
+	"Referer":            "https://account.hoyoverse.com/",
 	"Sec-Ch-Ua":          `"Chromium";v="134", "Not:A-Brand";v="24", "Microsoft Edge";v="134"`,
 	"Sec-Ch-Ua-Mobile":   "?0",
 	"Sec-Ch-Ua-Platform": `"Windows"`,
@@ -57,5 +57,5 @@ var ListAccountsHeaders = map[string]string{
 	"Sec-Fetch-Mode":     "cors",
 	"Sec-Fetch-Site":     "cross-site",
 	"User-Agent":         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 Edg/134.0.0.0",
-	"x-rpc-language":     "en-US",
+	"x-rpc-language":     "en-us",
 }

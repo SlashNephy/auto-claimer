@@ -7,9 +7,14 @@ import (
 )
 
 var Package = do.Package(
-	do.Lazy(NewHonkaiStarrailRepository),
-	do.Bind[*HonkaiStarrailRepository, workflow.LoginHoYoverseAccountStore](),
-	do.Bind[*HonkaiStarrailRepository, workflow.RedeemHonkaiStarrailCodeStore](),
+	do.Lazy(NewHoYoverseRepository),
+	do.Bind[*HoYoverseRepository, query.HonkaiStarrailStore](),
+	do.Bind[*HoYoverseRepository, query.GenshinImpactStore](),
+	do.Bind[*HoYoverseRepository, query.ZenlessZoneZeroStore](),
+	do.Bind[*HoYoverseRepository, workflow.LoginHoYoverseAccountStore](),
+	do.Bind[*HoYoverseRepository, workflow.RedeemHonkaiStarrailCodeStore](),
+	do.Bind[*HoYoverseRepository, workflow.RedeemGenshinImpactCodeStore](),
+	do.Bind[*HoYoverseRepository, workflow.RedeemZenlessZoneZeroCodeStore](),
 
 	do.Lazy(NewEnneadRepository),
 	do.Bind[*EnneadRepository, query.HonkaiStarrailCodeStore](),

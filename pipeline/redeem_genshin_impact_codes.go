@@ -15,31 +15,31 @@ import (
 	"github.com/samber/lo"
 )
 
-func NewRedeemHonkaiStarrailCodesPipeline(i do.Injector) (RedeemHonkaiStarrailCodesPipeline, error) {
+func NewRedeemGenshinImpactCodesPipeline(i do.Injector) (RedeemGenshinImpactCodesPipeline, error) {
 	redeemedCodeQuery := do.MustInvoke[query.RedeemedCodeQuery](i)
-	honkaiStarrailQuery := do.MustInvoke[query.HonkaiStarrailQuery](i)
-	redeemWorkflow := do.MustInvoke[workflow.RedeemHonkaiStarrailCodeWorkflow](i)
+	genshinImpactQuery := do.MustInvoke[query.GenshinImpactQuery](i)
+	redeemWorkflow := do.MustInvoke[workflow.RedeemGenshinImpactCodeWorkflow](i)
 	notifyWorkflow := do.MustInvoke[workflow.NotifyHoYoverseCodeRedeemedWorkflow](i)
 
-	return NewPipelineFunc(func(ctx context.Context, input *RedeemHonkaiStarrailCodesInput) (*RedeemHonkaiStarrailCodesOutput, error) {
-		availableCodes, err := honkaiStarrailQuery.ListAvailableHonkaiStarrailCodes(ctx)
+	return NewPipelineFunc(func(ctx context.Context, input *RedeemGenshinImpactCodesInput) (*RedeemGenshinImpactCodesOutput, error) {
+		availableCodes, err := genshinImpactQuery.ListAvailableGenshinImpactCodes(ctx)
 		if err != nil {
 			return nil, err
 		}
 
-		accounts, err := honkaiStarrailQuery.ListHonkaiStarrailGameAccounts(ctx)
+		accounts, err := genshinImpactQuery.ListGenshinImpactGameAccounts(ctx)
 		if err != nil {
 			return nil, err
 		}
 
-		slog.InfoContext(ctx, "Honkai Starrail game accounts",
+		slog.InfoContext(ctx, "Genshin Impact game accounts",
 			slog.Any("accounts", lo.Map(accounts, func(account *hoyoverse.GameAccount, _ int) string {
 				return account.String()
 			})),
 		)
 
 		redeem := func(account *hoyoverse.GameAccount, code *hoyoverse.Code) error {
-			redeemed, err := redeemWorkflow.Do(ctx, &workflow.RedeemHonkaiStarrailCodeCommand{
+			redeemed, err := redeemWorkflow.Do(ctx, &workflow.RedeemGenshinImpactCodeCommand{
 				Account: account,
 				Code:    code,
 			})
@@ -120,6 +120,6 @@ func NewRedeemHonkaiStarrailCodesPipeline(i do.Injector) (RedeemHonkaiStarrailCo
 			}
 		}
 
-		return &RedeemHonkaiStarrailCodesOutput{}, nil
+		return &RedeemGenshinImpactCodesOutput{}, nil
 	}), nil
 }

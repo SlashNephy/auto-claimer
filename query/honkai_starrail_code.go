@@ -7,16 +7,22 @@ import (
 	"github.com/samber/do/v2"
 )
 
-type HonkaiStarrailCodeQueryImpl struct {
-	store HonkaiStarrailCodeStore
+type HonkaiStarrailQueryImpl struct {
+	store     HonkaiStarrailStore
+	codeStore HonkaiStarrailCodeStore
 }
 
-func NewHonkaiStarrailCodeQuery(i do.Injector) (*HonkaiStarrailCodeQueryImpl, error) {
-	return &HonkaiStarrailCodeQueryImpl{
-		store: do.MustInvoke[HonkaiStarrailCodeStore](i),
+func NewHonkaiStarrailQuery(i do.Injector) (*HonkaiStarrailQueryImpl, error) {
+	return &HonkaiStarrailQueryImpl{
+		store:     do.MustInvoke[HonkaiStarrailStore](i),
+		codeStore: do.MustInvoke[HonkaiStarrailCodeStore](i),
 	}, nil
 }
 
-func (q *HonkaiStarrailCodeQueryImpl) ListAvailableCodes(ctx context.Context) ([]*hoyoverse.Code, error) {
-	return q.store.ListAvailableHonkaiStarrailCodes(ctx)
+func (q *HonkaiStarrailQueryImpl) ListHonkaiStarrailGameAccounts(ctx context.Context) ([]*hoyoverse.GameAccount, error) {
+	return q.store.ListHonkaiStarrailGameAccounts(ctx)
+}
+
+func (q *HonkaiStarrailQueryImpl) ListAvailableHonkaiStarrailCodes(ctx context.Context) ([]*hoyoverse.Code, error) {
+	return q.codeStore.ListAvailableHonkaiStarrailCodes(ctx)
 }

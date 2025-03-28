@@ -13,11 +13,11 @@ import (
 	"github.com/goccy/go-json"
 )
 
-func (r *HoYoverseRepository) ListHonkaiStarrailGameAccounts(ctx context.Context) ([]*hoyoverse.GameAccount, error) {
-	return r.listGameAccounts(ctx, "hkrpg_global", entity.GameHonkaiStarrail)
+func (r *HoYoverseRepository) ListZenlessZoneZeroGameAccounts(ctx context.Context) ([]*hoyoverse.GameAccount, error) {
+	return r.listGameAccounts(ctx, "nap_global", entity.GameZenlessZoneZero)
 }
 
-func (r *HoYoverseRepository) RedeemHonkaiStarrailCode(ctx context.Context, account *hoyoverse.GameAccount, code *hoyoverse.Code) error {
+func (r *HoYoverseRepository) RedeemZenlessZoneZeroCode(ctx context.Context, account *hoyoverse.GameAccount, code *hoyoverse.Code) error {
 	requestBody, err := json.Marshal(&hoyoverse.RedemptionRequest{
 		CDKey:      code.GetCode(),
 		DeviceUUID: r.miHoYoUUID,
@@ -32,7 +32,7 @@ func (r *HoYoverseRepository) RedeemHonkaiStarrailCode(ctx context.Context, acco
 		return fmt.Errorf("failed to marshal request: %w", err)
 	}
 
-	request, err := http.NewRequestWithContext(ctx, http.MethodPost, hoyoverse.HonkaiStarrailRedemptionURL, bytes.NewBuffer(requestBody))
+	request, err := http.NewRequestWithContext(ctx, http.MethodPost, hoyoverse.ZenlessZoneZeroRedemptionURL, bytes.NewBuffer(requestBody))
 	if err != nil {
 		return fmt.Errorf("failed to create request: %w", err)
 	}
@@ -42,8 +42,8 @@ func (r *HoYoverseRepository) RedeemHonkaiStarrailCode(ctx context.Context, acco
 	}
 
 	request.Header.Set("Content-Type", "application/json")
-	request.Header.Set("Origin", hoyoverse.HonkaiStarrailRedemptionOrigin)
-	request.Header.Set("Referer", hoyoverse.HonkaiStarrailRedemptionOrigin+"/")
+	request.Header.Set("Origin", hoyoverse.ZenlessZoneZeroRedemptionOrigin)
+	request.Header.Set("Referer", hoyoverse.ZenlessZoneZeroRedemptionOrigin+"/")
 
 	response, err := r.httpClient.Do(request)
 	if err != nil {

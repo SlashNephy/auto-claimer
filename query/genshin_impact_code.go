@@ -7,16 +7,22 @@ import (
 	"github.com/samber/do/v2"
 )
 
-type GenshinImpactCodeQueryImpl struct {
-	store GenshinImpactCodeStore
+type GenshinImpactQueryImpl struct {
+	store     GenshinImpactStore
+	codeStore GenshinImpactCodeStore
 }
 
-func NewGenshinImpactCodeQuery(i do.Injector) (*GenshinImpactCodeQueryImpl, error) {
-	return &GenshinImpactCodeQueryImpl{
-		store: do.MustInvoke[GenshinImpactCodeStore](i),
+func NewGenshinImpactQuery(i do.Injector) (*GenshinImpactQueryImpl, error) {
+	return &GenshinImpactQueryImpl{
+		store:     do.MustInvoke[GenshinImpactStore](i),
+		codeStore: do.MustInvoke[GenshinImpactCodeStore](i),
 	}, nil
 }
 
-func (q *GenshinImpactCodeQueryImpl) ListAvailableCodes(ctx context.Context) ([]*hoyoverse.Code, error) {
-	return q.store.ListAvailableGenshinImpactCodes(ctx)
+func (q *GenshinImpactQueryImpl) ListGenshinImpactGameAccounts(ctx context.Context) ([]*hoyoverse.GameAccount, error) {
+	return q.store.ListGenshinImpactGameAccounts(ctx)
+}
+
+func (q *GenshinImpactQueryImpl) ListAvailableGenshinImpactCodes(ctx context.Context) ([]*hoyoverse.Code, error) {
+	return q.codeStore.ListAvailableGenshinImpactCodes(ctx)
 }

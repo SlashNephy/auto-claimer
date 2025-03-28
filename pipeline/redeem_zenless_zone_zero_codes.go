@@ -15,31 +15,31 @@ import (
 	"github.com/samber/lo"
 )
 
-func NewRedeemHonkaiStarrailCodesPipeline(i do.Injector) (RedeemHonkaiStarrailCodesPipeline, error) {
+func NewRedeemZenlessZoneZeroCodesPipeline(i do.Injector) (RedeemZenlessZoneZeroCodesPipeline, error) {
 	redeemedCodeQuery := do.MustInvoke[query.RedeemedCodeQuery](i)
-	honkaiStarrailQuery := do.MustInvoke[query.HonkaiStarrailQuery](i)
-	redeemWorkflow := do.MustInvoke[workflow.RedeemHonkaiStarrailCodeWorkflow](i)
+	zenlessZoneZeroQuery := do.MustInvoke[query.ZenlessZoneZeroQuery](i)
+	redeemWorkflow := do.MustInvoke[workflow.RedeemZenlessZoneZeroCodeWorkflow](i)
 	notifyWorkflow := do.MustInvoke[workflow.NotifyHoYoverseCodeRedeemedWorkflow](i)
 
-	return NewPipelineFunc(func(ctx context.Context, input *RedeemHonkaiStarrailCodesInput) (*RedeemHonkaiStarrailCodesOutput, error) {
-		availableCodes, err := honkaiStarrailQuery.ListAvailableHonkaiStarrailCodes(ctx)
+	return NewPipelineFunc(func(ctx context.Context, input *RedeemZenlessZoneZeroCodesInput) (*RedeemZenlessZoneZeroCodesOutput, error) {
+		availableCodes, err := zenlessZoneZeroQuery.ListAvailableZenlessZoneZeroCodes(ctx)
 		if err != nil {
 			return nil, err
 		}
 
-		accounts, err := honkaiStarrailQuery.ListHonkaiStarrailGameAccounts(ctx)
+		accounts, err := zenlessZoneZeroQuery.ListZenlessZoneZeroGameAccounts(ctx)
 		if err != nil {
 			return nil, err
 		}
 
-		slog.InfoContext(ctx, "Honkai Starrail game accounts",
+		slog.InfoContext(ctx, "Zenless Zone Zero game accounts",
 			slog.Any("accounts", lo.Map(accounts, func(account *hoyoverse.GameAccount, _ int) string {
 				return account.String()
 			})),
 		)
 
 		redeem := func(account *hoyoverse.GameAccount, code *hoyoverse.Code) error {
-			redeemed, err := redeemWorkflow.Do(ctx, &workflow.RedeemHonkaiStarrailCodeCommand{
+			redeemed, err := redeemWorkflow.Do(ctx, &workflow.RedeemZenlessZoneZeroCodeCommand{
 				Account: account,
 				Code:    code,
 			})
@@ -120,6 +120,6 @@ func NewRedeemHonkaiStarrailCodesPipeline(i do.Injector) (RedeemHonkaiStarrailCo
 			}
 		}
 
-		return &RedeemHonkaiStarrailCodesOutput{}, nil
+		return &RedeemZenlessZoneZeroCodesOutput{}, nil
 	}), nil
 }

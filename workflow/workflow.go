@@ -27,9 +27,7 @@ type (
 		Email    string
 		Password string
 	}
-	HoYoverseAccountLoggedInEvent struct {
-		Accounts []*hoyoverse.GameAccount
-	}
+	HoYoverseAccountLoggedInEvent struct{}
 )
 
 type (
@@ -39,6 +37,28 @@ type (
 		Code    *hoyoverse.Code
 	}
 	HonkaiStarrailCodeRedeemedEvent struct {
+		RedeemedCode *hoyoverse.Code
+	}
+)
+
+type (
+	RedeemGenshinImpactCodeWorkflow Workflow[*RedeemGenshinImpactCodeCommand, *GenshinImpactCodeRedeemedEvent]
+	RedeemGenshinImpactCodeCommand  struct {
+		Account *hoyoverse.GameAccount
+		Code    *hoyoverse.Code
+	}
+	GenshinImpactCodeRedeemedEvent struct {
+		RedeemedCode *hoyoverse.Code
+	}
+)
+
+type (
+	RedeemZenlessZoneZeroCodeWorkflow Workflow[*RedeemZenlessZoneZeroCodeCommand, *ZenlessZoneZeroCodeRedeemedEvent]
+	RedeemZenlessZoneZeroCodeCommand  struct {
+		Account *hoyoverse.GameAccount
+		Code    *hoyoverse.Code
+	}
+	ZenlessZoneZeroCodeRedeemedEvent struct {
 		RedeemedCode *hoyoverse.Code
 	}
 )

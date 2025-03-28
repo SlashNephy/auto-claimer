@@ -24,22 +24,22 @@ func NewEnneadRepository(do.Injector) (*EnneadRepository, error) {
 }
 
 func (r *EnneadRepository) ListAvailableHonkaiStarrailCodes(ctx context.Context) ([]*hoyoverse.Code, error) {
-	return r.listAvailableCodes(ctx, "starrail")
+	return r.listAvailableCodes(ctx, entity.GameHonkaiStarrail, "starrail")
 }
 
 func (r *EnneadRepository) ListAvailableGenshinImpactCodes(ctx context.Context) ([]*hoyoverse.Code, error) {
-	return r.listAvailableCodes(ctx, "genshin")
+	return r.listAvailableCodes(ctx, entity.GameGenshinImpact, "genshin")
 }
 
 func (r *EnneadRepository) ListAvailableZenlessZoneZeroCodes(ctx context.Context) ([]*hoyoverse.Code, error) {
-	return r.listAvailableCodes(ctx, "zenless")
+	return r.listAvailableCodes(ctx, entity.GameZenlessZoneZero, "zenless")
 }
 
-func (r *EnneadRepository) listAvailableCodes(ctx context.Context, game string) ([]*hoyoverse.Code, error) {
+func (r *EnneadRepository) listAvailableCodes(ctx context.Context, game entity.Game, gameParam string) ([]*hoyoverse.Code, error) {
 	request, err := http.NewRequestWithContext(
 		ctx,
 		http.MethodGet,
-		fmt.Sprintf("https://api.ennead.cc/mihoyo/%s/codes", game),
+		fmt.Sprintf("https://api.ennead.cc/mihoyo/%s/codes", gameParam),
 		nil,
 	)
 	if err != nil {
@@ -68,7 +68,7 @@ func (r *EnneadRepository) listAvailableCodes(ctx context.Context, game string) 
 
 	return lo.Map(codes.Active, func(code *hoYoverseCode, _ int) *hoyoverse.Code {
 		return &hoyoverse.Code{
-			Game:    entity.GameHonkaiStarrail,
+			Game:    game,
 			Code:    code.Code,
 			Rewards: code.Rewards,
 		}

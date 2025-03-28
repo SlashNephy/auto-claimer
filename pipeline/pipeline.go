@@ -21,11 +21,25 @@ func (f PipelineFunc[Input, Output]) Do(ctx context.Context, input Input) (Outpu
 type (
 	RedeemHonkaiStarrailCodesPipeline Pipeline[*RedeemHonkaiStarrailCodesInput, *RedeemHonkaiStarrailCodesOutput]
 	RedeemHonkaiStarrailCodesInput    struct {
-		HoYoverseEmail    string
-		HoYoversePassword string
 		DiscordWebhookURL *string
 	}
 	RedeemHonkaiStarrailCodesOutput struct{}
+)
+
+type (
+	RedeemGenshinImpactCodesPipeline Pipeline[*RedeemGenshinImpactCodesInput, *RedeemGenshinImpactCodesOutput]
+	RedeemGenshinImpactCodesInput    struct {
+		DiscordWebhookURL *string
+	}
+	RedeemGenshinImpactCodesOutput struct{}
+)
+
+type (
+	RedeemZenlessZoneZeroCodesPipeline Pipeline[*RedeemZenlessZoneZeroCodesInput, *RedeemZenlessZoneZeroCodesOutput]
+	RedeemZenlessZoneZeroCodesInput    struct {
+		DiscordWebhookURL *string
+	}
+	RedeemZenlessZoneZeroCodesOutput struct{}
 )
 
 type (

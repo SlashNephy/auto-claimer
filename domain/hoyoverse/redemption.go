@@ -1,6 +1,22 @@
 package hoyoverse
 
-const HonkaiStarrailRedemptionURL = "https://public-operation-hkrpg.hoyoverse.com/common/apicdkey/api/webExchangeCdkeyRisk"
+// https://hsr.hoyoverse.com/gift
+const (
+	HonkaiStarrailRedemptionOrigin = "https://hsr.hoyoverse.com"
+	HonkaiStarrailRedemptionURL    = "https://public-operation-hkrpg.hoyoverse.com/common/apicdkey/api/webExchangeCdkeyRisk"
+)
+
+// https://genshin.hoyoverse.com/ja/gift
+const (
+	GenshinImpactRedemptionOrigin = "https://genshin.hoyoverse.com"
+	GenshinImpactRedemptionURL    = "https://public-operation-hk4e.hoyoverse.com/common/apicdkey/api/webExchangeCdkey"
+)
+
+// https://zenless.hoyoverse.com/redemption/gift
+const (
+	ZenlessZoneZeroRedemptionOrigin = "https://zenless.hoyoverse.com"
+	ZenlessZoneZeroRedemptionURL    = "https://public-operation-nap.hoyoverse.com/common/apicdkey/api/webExchangeCdkeyRisk"
+)
 
 type RedemptionRequest struct {
 	CDKey      string `json:"cdkey"`
@@ -15,13 +31,10 @@ type RedemptionRequest struct {
 
 type RedemptionResponse APIResponse[struct{}]
 
-// https://hsr.hoyoverse.com/gift
 var RedemptionHeaders = map[string]string{
 	"Accept":             "*/*",
 	"Accept-Language":    "en",
-	"Origin":             "https://hsr.hoyoverse.com",
 	"Priority":           "u=1, i",
-	"Referer":            "https://hsr.hoyoverse.com/",
 	"Sec-Ch-Ua":          `"Chromium";v="134", "Not:A-Brand";v="24", "Microsoft Edge";v="134"`,
 	"Sec-Ch-Ua-Mobile":   "?0",
 	"Sec-Ch-Ua-Platform": `"Windows"`,
