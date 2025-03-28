@@ -1,4 +1,6 @@
+Game.GenshinImpact: Genshin Impact
 Game.HonkaiStarrail: 'Honkai: Star Rail'
+Game.ZenlessZoneZero: Zenless Zone Zero
 HoYoverseCodeRedeemedNotification.Author: '{{.Nickname}} (UID:{{.UID}})'
 HoYoverseCodeRedeemedNotification.RewardsField: Rewards
 HoYoverseCodeRedeemedNotification.Title: '`{{.Code}}` redeemed!'

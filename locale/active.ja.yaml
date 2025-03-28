@@ -1,6 +1,12 @@
+Game.GenshinImpact:
+    hash: sha1-f7b5581199d77dabb4def9c8f9f02bd3af19ec43
+    other: 原神
 Game.HonkaiStarrail:
     hash: sha1-c46cc2993d4a72a231b027a7732a1c6cd26bd09b
     other: 崩壊:スターレイル
+Game.ZenlessZoneZero:
+    hash: sha1-a0763820c7185a909115ec845d69d519189d0e2c
+    other: ゼンレスゾーンゼロ
 HoYoverseCodeRedeemedNotification.Author:
     hash: sha1-902b689048ffe17c6961851b0f9ae51ef2a2f584
     other: '{{.Nickname}} (UID:{{.UID}})'
