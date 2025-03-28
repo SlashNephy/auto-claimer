@@ -24,10 +24,22 @@ func NewEnneadRepository(do.Injector) (*EnneadRepository, error) {
 }
 
 func (r *EnneadRepository) ListAvailableHonkaiStarrailCodes(ctx context.Context) ([]*hoyoverse.Code, error) {
+	return r.listAvailableCodes(ctx, "starrail")
+}
+
+func (r *EnneadRepository) ListAvailableGenshinImpactCodes(ctx context.Context) ([]*hoyoverse.Code, error) {
+	return r.listAvailableCodes(ctx, "genshin")
+}
+
+func (r *EnneadRepository) ListAvailableZenlessZoneZeroCodes(ctx context.Context) ([]*hoyoverse.Code, error) {
+	return r.listAvailableCodes(ctx, "zenless")
+}
+
+func (r *EnneadRepository) listAvailableCodes(ctx context.Context, game string) ([]*hoyoverse.Code, error) {
 	request, err := http.NewRequestWithContext(
 		ctx,
 		http.MethodGet,
-		"https://api.ennead.cc/mihoyo/starrail/codes",
+		fmt.Sprintf("https://api.ennead.cc/mihoyo/%s/codes", game),
 		nil,
 	)
 	if err != nil {

@@ -15,18 +15,19 @@ import (
 )
 
 func NewRedeemHonkaiStarrailCodesPipeline(i do.Injector) (RedeemHonkaiStarrailCodesPipeline, error) {
-	query := do.MustInvoke[query.HonkaiStarrailCodeQuery](i)
-	login := do.MustInvoke[workflow.LoginHoYoverseAccountWorkflow](i)
-	redeemer := do.MustInvoke[workflow.RedeemHonkaiStarrailCodeWorkflow](i)
-	notifier := do.MustInvoke[workflow.NotifyHoYoverseCodeRedeemedWorkflow](i)
+	redeemedCodeQuery := do.MustInvoke[query.RedeemedCodeQuery](i)
+	honkaiStarrailCodeQuery := do.MustInvoke[query.HonkaiStarrailCodeQuery](i)
+	loginWorkflow := do.MustInvoke[workflow.LoginHoYoverseAccountWorkflow](i)
+	redeemWorkflow := do.MustInvoke[workflow.RedeemHonkaiStarrailCodeWorkflow](i)
+	notifyWorkflow := do.MustInvoke[workflow.NotifyHoYoverseCodeRedeemedWorkflow](i)
 
 	return NewPipelineFunc(func(ctx context.Context, input *RedeemHonkaiStarrailCodesInput) (*RedeemHonkaiStarrailCodesOutput, error) {
-		availableCodes, err := query.ListAvailableCodes(ctx)
+		availableCodes, err := honkaiStarrailCodeQuery.ListAvailableCodes(ctx)
 		if err != nil {
 			return nil, err
 		}
 
-		loggedIn, err := login.Do(ctx, &workflow.LoginHoYoverseAccountCommand{
+		loggedIn, err := loginWorkflow.Do(ctx, &workflow.LoginHoYoverseAccountCommand{
 			Email:    input.HoYoverseEmail,
 			Password: input.HoYoversePassword,
 		})
@@ -35,7 +36,7 @@ func NewRedeemHonkaiStarrailCodesPipeline(i do.Injector) (RedeemHonkaiStarrailCo
 		}
 
 		redeem := func(account *hoyoverse.GameAccount, code *hoyoverse.Code) error {
-			redeemed, err := redeemer.Do(ctx, &workflow.RedeemHonkaiStarrailCodeCommand{
+			redeemed, err := redeemWorkflow.Do(ctx, &workflow.RedeemHonkaiStarrailCodeCommand{
 				Account: account,
 				Code:    code,
 			})
@@ -76,7 +77,7 @@ func NewRedeemHonkaiStarrailCodesPipeline(i do.Injector) (RedeemHonkaiStarrailCo
 			)
 
 			if input.DiscordWebhookURL != nil {
-				_, err = notifier.Do(ctx, &workflow.NotifyHoYoverseCodeRedeemedCommand{
+				_, err = notifyWorkflow.Do(ctx, &workflow.NotifyHoYoverseCodeRedeemedCommand{
 					DiscordWebhookURL: *input.DiscordWebhookURL,
 					RedeemedCode:      redeemed.RedeemedCode,
 					Account:           account,
@@ -90,7 +91,7 @@ func NewRedeemHonkaiStarrailCodesPipeline(i do.Injector) (RedeemHonkaiStarrailCo
 		}
 
 		for _, account := range loggedIn.Accounts {
-			redeemedCodes, err := query.ListRedeemedCodes(ctx, account)
+			redeemedCodes, err := redeemedCodeQuery.ListRedeemedCodes(ctx, account)
 			if err != nil {
 				return nil, err
 			}

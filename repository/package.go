@@ -13,6 +13,8 @@ var Package = do.Package(
 
 	do.Lazy(NewEnneadRepository),
 	do.Bind[*EnneadRepository, query.HonkaiStarrailCodeStore](),
+	do.Bind[*EnneadRepository, query.GenshinImpactCodeStore](),
+	do.Bind[*EnneadRepository, query.ZenlessZoneZeroCodeStore](),
 
 	do.Lazy(NewRedeemedCodeRepository),
 	do.Bind[*RedeemedCodeRepository, query.RedeemedCodeStore](),

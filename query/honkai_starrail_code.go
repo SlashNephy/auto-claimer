@@ -8,23 +8,15 @@ import (
 )
 
 type HonkaiStarrailCodeQueryImpl struct {
-	store             HonkaiStarrailCodeStore
-	redeemedCodeStore RedeemedCodeStore
-
-	HonkaiStarrailCodeQuery
+	store HonkaiStarrailCodeStore
 }
 
 func NewHonkaiStarrailCodeQuery(i do.Injector) (*HonkaiStarrailCodeQueryImpl, error) {
 	return &HonkaiStarrailCodeQueryImpl{
-		store:             do.MustInvoke[HonkaiStarrailCodeStore](i),
-		redeemedCodeStore: do.MustInvoke[RedeemedCodeStore](i),
+		store: do.MustInvoke[HonkaiStarrailCodeStore](i),
 	}, nil
 }
 
 func (q *HonkaiStarrailCodeQueryImpl) ListAvailableCodes(ctx context.Context) ([]*hoyoverse.Code, error) {
 	return q.store.ListAvailableHonkaiStarrailCodes(ctx)
-}
-
-func (q *HonkaiStarrailCodeQueryImpl) ListRedeemedCodes(ctx context.Context, account *hoyoverse.GameAccount) ([]string, error) {
-	return q.redeemedCodeStore.ListRedeemedCodes(ctx, account)
 }
