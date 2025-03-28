@@ -28,7 +28,7 @@ func NewRedeemHonkaiStarrailCodesPipeline(i do.Injector) (RedeemHonkaiStarrailCo
 
 		loggedIn, err := login.Do(ctx, &workflow.LoginHoYoverseAccountCommand{
 			Email:    input.HoYoverseEmail,
-			Password: input.HoYoverseEmail,
+			Password: input.HoYoversePassword,
 		})
 		if err != nil {
 			return nil, err
