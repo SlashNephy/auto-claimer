@@ -18,9 +18,7 @@ type LoginRequest struct {
 	TokenType int    `json:"token_type"`
 }
 
-type LoginResponse APIResponse[LoginResponseData]
-
-type LoginResponseData struct{}
+type LoginResponse APIResponse[struct{}]
 
 const LoginTokenType = 4
 
@@ -48,11 +46,17 @@ var LoginHeaders = map[string]string{
 	"x-rpc-device_name":  "Microsoft Edge",
 	"x-rpc-device_os":    "Windows 10 64-bit",
 	"x-rpc-game_biz":     "plat_os",
-	"x-rpc-language":     "en-US",
+	"x-rpc-language":     "en-us",
 	"x-rpc-lifecycle_id": "",
 	"x-rpc-referrer":     "https://account.hoyoverse.com/passport/index.html#/",
 	"x-rpc-sdk_version":  "2.38.0",
 }
+
+const (
+	HeaderXRpcDeviceFp    = "x-rpc-device_fp"
+	HeaderXRpcDeviceID    = "x-rpc-device_id"
+	HeaderXRpcLifecycleID = "x-rpc-lifecycle_id"
+)
 
 // https://webstatic.hoyoverse.com/dora/biz/hoyoverse-account-sdk/main.js
 const encryptKey = `-----BEGIN PUBLIC KEY-----

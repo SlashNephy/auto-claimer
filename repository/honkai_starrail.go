@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"net/http/cookiejar"
 	"time"
 
 	"github.com/SlashNephy/auto-claimer/domain/entity"
@@ -20,20 +19,49 @@ import (
 type HonkaiStarrailRepository struct {
 	httpClient *http.Client
 
+	deviceFp      string
+	hoYoverseUUID string
+	miHoYoUUID    string
+	lifecycleID   string
+
 	query.HonkaiStarrailCodeStore
 	workflow.RedeemHonkaiStarrailCodeStore
 }
 
 func NewHonkaiStarrailRepository(i do.Injector) (*HonkaiStarrailRepository, error) {
-	jar, err := cookiejar.New(nil)
-	if err != nil {
-		return nil, err
-	}
+	deviceFp := hoyoverse.GenerateDeviceFp()
+	lifecycleID := hoyoverse.GenerateUUID()
+	hoYoverseUUID := hoyoverse.GenerateUUID()
+	miHoYoUUID := hoyoverse.GenerateUUID()
+
+	jar := NewSharedCookieJar(hoyoverse.DefaultCookies)
+	jar.SetCookies(nil, []*http.Cookie{
+		{
+			Name:  hoyoverse.CookieDeviceFp,
+			Value: deviceFp,
+		},
+		{
+			Name:  hoyoverse.CookieLifecycleID,
+			Value: "{%22value%22:%22" + lifecycleID + "%22}",
+		},
+		{
+			Name:  hoyoverse.CookieHoYoverseUUID,
+			Value: hoYoverseUUID,
+		},
+		{
+			Name:  hoyoverse.CookieMiHoYoUUID,
+			Value: miHoYoUUID,
+		},
+	})
 
 	return &HonkaiStarrailRepository{
 		httpClient: &http.Client{
 			Jar: jar,
 		},
+		deviceFp:      deviceFp,
+		hoYoverseUUID: hoYoverseUUID,
+		miHoYoUUID:    miHoYoUUID,
+		lifecycleID:   lifecycleID,
 	}, nil
 }
 
@@ -74,6 +102,10 @@ func (r *HonkaiStarrailRepository) Login(ctx context.Context, email, password st
 	for k, v := range hoyoverse.LoginHeaders {
 		request.Header.Set(k, v)
 	}
+
+	request.Header.Set(hoyoverse.HeaderXRpcDeviceFp, r.deviceFp)
+	request.Header.Set(hoyoverse.HeaderXRpcDeviceID, r.hoYoverseUUID)
+	request.Header.Set(hoyoverse.HeaderXRpcLifecycleID, r.lifecycleID)
 
 	response, err := r.httpClient.Do(request)
 	if err != nil {
@@ -149,13 +181,14 @@ func (r *HonkaiStarrailRepository) ListGameAccounts(ctx context.Context) ([]*hoy
 
 func (r *HonkaiStarrailRepository) RedeemCode(ctx context.Context, account *hoyoverse.GameAccount, code *hoyoverse.Code) error {
 	requestBody, err := json.Marshal(&hoyoverse.RedemptionRequest{
-		CDKey:    code.GetCode(),
-		GameBiz:  account.GameBiz,
-		Lang:     account.Language,
-		Platform: "4",
-		Region:   account.Region,
-		Time:     time.Now().UnixMilli(),
-		UID:      account.UID,
+		CDKey:      code.GetCode(),
+		DeviceUUID: r.miHoYoUUID,
+		GameBiz:    account.GameBiz,
+		Lang:       account.Language,
+		Platform:   "4",
+		Region:     account.Region,
+		Time:       time.Now().UnixMilli(),
+		UID:        account.UID,
 	})
 	if err != nil {
 		return fmt.Errorf("failed to marshal request: %w", err)

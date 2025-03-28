@@ -3,13 +3,14 @@ package hoyoverse
 const HonkaiStarrailRedemptionURL = "https://public-operation-hkrpg.hoyoverse.com/common/apicdkey/api/webExchangeCdkeyRisk"
 
 type RedemptionRequest struct {
-	CDKey    string `json:"cdkey"`
-	GameBiz  string `json:"game_biz"`
-	Lang     string `json:"lang"`
-	Platform string `json:"platform"`
-	Region   string `json:"region"`
-	Time     int64  `json:"t"`
-	UID      string `json:"uid"`
+	CDKey      string `json:"cdkey"`
+	DeviceUUID string `json:"device_uuid"`
+	GameBiz    string `json:"game_biz"`
+	Lang       string `json:"lang"`
+	Platform   string `json:"platform"`
+	Region     string `json:"region"`
+	Time       int64  `json:"t"`
+	UID        string `json:"uid"`
 }
 
 type RedemptionResponse APIResponse[struct{}]
