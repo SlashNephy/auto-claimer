@@ -22,7 +22,7 @@ func NewHonkaiStarrailCodeQuery(i do.Injector) (*HonkaiStarrailCodeQueryImpl, er
 }
 
 func (q *HonkaiStarrailCodeQueryImpl) ListAvailableCodes(ctx context.Context) ([]*hoyoverse.Code, error) {
-	return q.store.ListAvailableCodes(ctx)
+	return q.store.ListAvailableHonkaiStarrailCodes(ctx)
 }
 
 func (q *HonkaiStarrailCodeQueryImpl) ListRedeemedCodes(ctx context.Context, account *hoyoverse.GameAccount) ([]string, error) {

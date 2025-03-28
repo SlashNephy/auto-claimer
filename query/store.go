@@ -8,7 +8,7 @@ import (
 )
 
 type HonkaiStarrailCodeStore interface {
-	ListAvailableCodes(ctx context.Context) ([]*hoyoverse.Code, error)
+	ListAvailableHonkaiStarrailCodes(ctx context.Context) ([]*hoyoverse.Code, error)
 }
 
 type RedeemedCodeStore interface {

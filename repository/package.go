@@ -8,9 +8,11 @@ import (
 
 var Package = do.Package(
 	do.Lazy(NewHonkaiStarrailRepository),
-	do.Bind[*HonkaiStarrailRepository, query.HonkaiStarrailCodeStore](),
 	do.Bind[*HonkaiStarrailRepository, workflow.LoginHoYoverseAccountStore](),
 	do.Bind[*HonkaiStarrailRepository, workflow.RedeemHonkaiStarrailCodeStore](),
+
+	do.Lazy(NewEnneadRepository),
+	do.Bind[*EnneadRepository, query.HonkaiStarrailCodeStore](),
 
 	do.Lazy(NewRedeemedCodeRepository),
 	do.Bind[*RedeemedCodeRepository, query.RedeemedCodeStore](),
