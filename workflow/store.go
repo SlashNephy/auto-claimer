@@ -13,7 +13,7 @@ type LoginHoYoverseAccountStore interface {
 }
 
 type RedeemHonkaiStarrailCodeStore interface {
-	RedeemCode(ctx context.Context, account *hoyoverse.GameAccount, code *hoyoverse.Code) error
+	RedeemHonkaiStarrailCode(ctx context.Context, account *hoyoverse.GameAccount, code *hoyoverse.Code) error
 }
 
 type MarkCodeAsRedeemedStore interface {

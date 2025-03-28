@@ -179,7 +179,7 @@ func (r *HonkaiStarrailRepository) ListGameAccounts(ctx context.Context) ([]*hoy
 	return accounts, nil
 }
 
-func (r *HonkaiStarrailRepository) RedeemCode(ctx context.Context, account *hoyoverse.GameAccount, code *hoyoverse.Code) error {
+func (r *HonkaiStarrailRepository) RedeemHonkaiStarrailCode(ctx context.Context, account *hoyoverse.GameAccount, code *hoyoverse.Code) error {
 	requestBody, err := json.Marshal(&hoyoverse.RedemptionRequest{
 		CDKey:      code.GetCode(),
 		DeviceUUID: r.miHoYoUUID,

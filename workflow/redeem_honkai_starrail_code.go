@@ -14,7 +14,7 @@ func NewRedeemHonkaiStarrailCodeWorkflow(i do.Injector) (RedeemHonkaiStarrailCod
 
 	return NewWorkflowFunc(func(ctx context.Context, command *RedeemHonkaiStarrailCodeCommand) (*HonkaiStarrailCodeRedeemedEvent, error) {
 		alreadyRedeemed := false
-		if err := redeemer.RedeemCode(ctx, command.Account, command.Code); err != nil {
+		if err := redeemer.RedeemHonkaiStarrailCode(ctx, command.Account, command.Code); err != nil {
 			if errors.Is(err, entity.ErrCodeAlreadyRedeemed) || errors.Is(err, entity.ErrCodeExpired) {
 				// すでに交換済みのコードであったり、期限切れだったコードの場合にも MarkCodeAsRedeemed されるようにする
 				alreadyRedeemed = true
