@@ -20,42 +20,43 @@ type LoginRequest struct {
 
 type LoginResponse APIResponse[struct{}]
 
-const LoginTokenType = 4
+const LoginTokenType = 6
 
 var LoginHeaders = map[string]string{
-	"Accept":             "application/json, text/plain, */*",
-	"accept-language":    "en",
-	"Content-Type":       "application/json",
-	"Origin":             "https://account.hoyoverse.com",
-	"Referer":            "https://account.hoyoverse.com/",
-	"Sec-Ch-Ua":          `"Chromium";v="134", "Not:A-Brand";v="24", "Microsoft Edge";v="134"`,
-	"Sec-Ch-Ua-Mobile":   "?0",
-	"Sec-Ch-Ua-Platform": `"Windows"`,
-	"Sec-Fetch-Dest":     "empty",
-	"Sec-Fetch-Mode":     "cors",
-	"Sec-Fetch-Site":     "cross-site",
-	"User-Agent":         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 Edg/134.0.0.0",
-	"x-rpc-age_gate":     "true",
-	"x-rpc-aigis_v4":     "true",
-	"x-rpc-app_id":       "de8ohyzxreo0",
-	"x-rpc-app_version":  "",
-	"x-rpc-client_type":  "4",
-	"x-rpc-device_fp":    "",
-	"x-rpc-device_id":    "",
-	"x-rpc-device_model": "Microsoft Edge 134.0.0.0",
-	"x-rpc-device_name":  "Microsoft Edge",
-	"x-rpc-device_os":    "Windows 10 64-bit",
-	"x-rpc-game_biz":     "plat_os",
-	"x-rpc-language":     "en-us",
-	"x-rpc-lifecycle_id": "",
-	"x-rpc-referrer":     "https://account.hoyoverse.com/passport/index.html#/",
-	"x-rpc-sdk_version":  "2.38.0",
+	"Accept":              "application/json, text/plain, */*",
+	"Accept-Language":     "en",
+	"Cache-Control":       "no-cache",
+	"Content-Type":        "application/json",
+	"Origin":              "https://account.hoyoverse.com",
+	"Pragma":              "no-cache",
+	"Referer":             "https://account.hoyoverse.com/",
+	"Sec-Ch-Ua":           `"Chromium";v="136", "Microsoft Edge";v="136", "Not.A/Brand";v="99"`,
+	"Sec-Ch-Ua-Mobile":    "?0",
+	"Sec-Ch-Ua-Platform":  `"Windows"`,
+	"Sec-Fetch-Dest":      "empty",
+	"Sec-Fetch-Mode":      "cors",
+	"Sec-Fetch-Site":      "same-site",
+	"User-Agent":          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0",
+	"X-Rpc-Age_gate":      "true",
+	"X-Rpc-Aigis_v4":      "true",
+	"X-Rpc-App_id":        "dnci5hp1qxa8",
+	"X-Rpc-App_version":   "",
+	"X-Rpc-Client_type":   "4",
+	"X-Rpc-Device_fp":     "00000000000",
+	HeaderXRpcDeviceID:    "",
+	"X-Rpc-Device_model":  "Microsoft Edge 136.0.0.0",
+	"X-Rpc-Device_name":   "Microsoft Edge",
+	"X-Rpc-Device_OS":     "Windows 10 64-bit",
+	"X-Rpc-Game_Biz":      "plat_os",
+	"X-Rpc-Language":      "en-us",
+	HeaderXRpcLifecycleID: "",
+	"x-rpc-referrer":      "https://account.hoyoverse.com/passport/index.html#/",
+	"x-rpc-sdk_version":   "2.39.0",
 }
 
 const (
-	HeaderXRpcDeviceFp    = "x-rpc-device_fp"
-	HeaderXRpcDeviceID    = "x-rpc-device_id"
-	HeaderXRpcLifecycleID = "x-rpc-lifecycle_id"
+	HeaderXRpcDeviceID    = "X-Rpc-Device_id"
+	HeaderXRpcLifecycleID = "X-rpc-Lifecycle_id"
 )
 
 // https://webstatic.hoyoverse.com/dora/biz/hoyoverse-account-sdk/main.js

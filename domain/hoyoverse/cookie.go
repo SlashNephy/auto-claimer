@@ -11,8 +11,12 @@ import (
 
 var DefaultCookies = []*http.Cookie{
 	{
+		Name:  "DEVICEFP",
+		Value: "00000000000",
+	},
+	{
 		Name:  "HYV_LOGIN_PLATFORM_LOAD_TIMEOUT",
-		Value: "{}",
+		Value: "{%22value%22:0}",
 	},
 	{
 		Name:  "HYV_LOGIN_PLATFORM_OPTIONAL_AGREEMENT",
@@ -29,7 +33,6 @@ var DefaultCookies = []*http.Cookie{
 }
 
 const (
-	CookieDeviceFp      = "DEVICEFP"
 	CookieLifecycleID   = "HYV_LOGIN_PLATFORM_LIFECYCLE_ID"
 	CookieHoYoverseUUID = "_HYVUUID"
 	CookieMiHoYoUUID    = "_MHYUUID"

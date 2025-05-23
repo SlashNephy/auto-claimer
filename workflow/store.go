@@ -8,7 +8,7 @@ import (
 )
 
 type LoginHoYoverseAccountStore interface {
-	Login(ctx context.Context, email, password string) error
+	Login(ctx context.Context, email, password string, hoYoverseUUID, miHoYoUUID *string) error
 }
 
 type RedeemHonkaiStarrailCodeStore interface {

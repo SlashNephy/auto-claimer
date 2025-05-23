@@ -11,10 +11,14 @@ import (
 )
 
 type BatchRedeemCodesConfig struct {
-	Games             []entity.Game `env:"GAMES"`
-	HoYoverseEmail    *string       `env:"HOYOVERSE_EMAIL"`
-	HoYoversePassword *string       `env:"HOYOVERSE_PASSWORD"`
-	DiscordWebhookURL *string       `env:"DISCORD_WEBHOOK_URL"`
+	Games []entity.Game `env:"GAMES"`
+
+	HoYoverseEmail         *string `env:"HOYOVERSE_EMAIL"`
+	HoYoversePassword      *string `env:"HOYOVERSE_PASSWORD"`
+	HoYoverseHoYoverseUUID *string `env:"HOYOVERSE_HOYOVERSE_UUID"`
+	HoYoverseMiHoYoUUID    *string `env:"HOYOVERSE_MIHOYO_UUID"`
+
+	DiscordWebhookURL *string `env:"DISCORD_WEBHOOK_URL"`
 }
 
 func NewBatchRedeemCodesPipeline(i do.Injector) (BatchRedeemCodesPipeline, error) {
@@ -34,8 +38,10 @@ func NewBatchRedeemCodesPipeline(i do.Injector) (BatchRedeemCodesPipeline, error
 
 		if config.HoYoverseEmail != nil && config.HoYoversePassword != nil {
 			_, err := loginHoYoverseAccountWorkflow.Do(ctx, &workflow.LoginHoYoverseAccountCommand{
-				Email:    *config.HoYoverseEmail,
-				Password: *config.HoYoversePassword,
+				Email:         *config.HoYoverseEmail,
+				Password:      *config.HoYoversePassword,
+				HoYoverseUUID: config.HoYoverseHoYoverseUUID,
+				MiHoYoUUID:    config.HoYoverseMiHoYoUUID,
 			})
 			if err != nil {
 				return nil, err

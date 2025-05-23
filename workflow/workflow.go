@@ -24,8 +24,10 @@ func (f WorkflowFunc[Command, Event]) Do(ctx context.Context, command Command) (
 type (
 	LoginHoYoverseAccountWorkflow Workflow[*LoginHoYoverseAccountCommand, *HoYoverseAccountLoggedInEvent]
 	LoginHoYoverseAccountCommand  struct {
-		Email    string
-		Password string
+		Email         string
+		Password      string
+		HoYoverseUUID *string
+		MiHoYoUUID    *string
 	}
 	HoYoverseAccountLoggedInEvent struct{}
 )

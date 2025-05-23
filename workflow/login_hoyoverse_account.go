@@ -11,7 +11,7 @@ func NewLoginHoYoverseAccountWorkflow(i do.Injector) (LoginHoYoverseAccountWorkf
 	store := do.MustInvoke[LoginHoYoverseAccountStore](i)
 
 	return NewWorkflowFunc(func(ctx context.Context, command *LoginHoYoverseAccountCommand) (*HoYoverseAccountLoggedInEvent, error) {
-		if err := store.Login(ctx, command.Email, command.Password); err != nil {
+		if err := store.Login(ctx, command.Email, command.Password, command.HoYoverseUUID, command.MiHoYoUUID); err != nil {
 			return nil, fmt.Errorf("failed to login HoYoverse account: %w", err)
 		}
 

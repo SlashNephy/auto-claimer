@@ -17,46 +17,18 @@ import (
 type HoYoverseRepository struct {
 	httpClient *http.Client
 
-	deviceFp      string
 	hoYoverseUUID string
 	miHoYoUUID    string
 	lifecycleID   string
 }
 
 func NewHoYoverseRepository(i do.Injector) (*HoYoverseRepository, error) {
-	deviceFp := hoyoverse.GenerateDeviceFp()
-	lifecycleID := hoyoverse.GenerateUUID()
-	hoYoverseUUID := hoyoverse.GenerateUUID()
-	miHoYoUUID := hoyoverse.GenerateUUID()
-
 	jar := NewSharedCookieJar(hoyoverse.DefaultCookies)
-	jar.SetCookies(nil, []*http.Cookie{
-		{
-			Name:  hoyoverse.CookieDeviceFp,
-			Value: deviceFp,
-		},
-		{
-			Name:  hoyoverse.CookieLifecycleID,
-			Value: "{%22value%22:%22" + lifecycleID + "%22}",
-		},
-		{
-			Name:  hoyoverse.CookieHoYoverseUUID,
-			Value: hoYoverseUUID,
-		},
-		{
-			Name:  hoyoverse.CookieMiHoYoUUID,
-			Value: miHoYoUUID,
-		},
-	})
 
 	return &HoYoverseRepository{
 		httpClient: &http.Client{
 			Jar: jar,
 		},
-		deviceFp:      deviceFp,
-		hoYoverseUUID: hoYoverseUUID,
-		miHoYoUUID:    miHoYoUUID,
-		lifecycleID:   lifecycleID,
 	}, nil
 }
 
@@ -69,7 +41,7 @@ type hoYoverseCode struct {
 	Rewards []string `json:"rewards"`
 }
 
-func (r *HoYoverseRepository) Login(ctx context.Context, email, password string) error {
+func (r *HoYoverseRepository) Login(ctx context.Context, email, password string, hoYoverseUUID, miHoYoUUID *string) error {
 	encryptedEmail, err := hoyoverse.Encrypt(email)
 	if err != nil {
 		return fmt.Errorf("failed to encrypt email: %w", err)
@@ -98,7 +70,33 @@ func (r *HoYoverseRepository) Login(ctx context.Context, email, password string)
 		request.Header.Set(k, v)
 	}
 
-	request.Header.Set(hoyoverse.HeaderXRpcDeviceFp, r.deviceFp)
+	if hoYoverseUUID != nil {
+		r.hoYoverseUUID = *hoYoverseUUID
+	} else {
+		r.hoYoverseUUID = hoyoverse.GenerateUUID()
+	}
+	if miHoYoUUID != nil {
+		r.miHoYoUUID = *miHoYoUUID
+	} else {
+		r.miHoYoUUID = hoyoverse.GenerateUUID()
+	}
+	r.lifecycleID = hoyoverse.GenerateUUID()
+
+	r.httpClient.Jar.SetCookies(nil, []*http.Cookie{
+		{
+			Name:  hoyoverse.CookieLifecycleID,
+			Value: "{%22value%22:%22" + r.lifecycleID + "%22}",
+		},
+		{
+			Name:  hoyoverse.CookieHoYoverseUUID,
+			Value: r.hoYoverseUUID,
+		},
+		{
+			Name:  hoyoverse.CookieMiHoYoUUID,
+			Value: r.miHoYoUUID,
+		},
+	})
+	request.Header.Set(hoyoverse.HeaderXRpcDeviceID, r.hoYoverseUUID)
 	request.Header.Set(hoyoverse.HeaderXRpcDeviceID, r.hoYoverseUUID)
 	request.Header.Set(hoyoverse.HeaderXRpcLifecycleID, r.lifecycleID)
 
