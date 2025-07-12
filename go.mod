@@ -4,7 +4,7 @@ go 1.24.1
 
 require (
 	github.com/caarlos0/env/v11 v11.3.1
-	github.com/disgoorg/disgo v0.18.15
+	github.com/disgoorg/disgo v0.18.16
 	github.com/glebarez/sqlite v1.11.0
 	github.com/goccy/go-json v0.10.5
 	github.com/goccy/go-yaml v1.16.0
