@@ -10,7 +10,7 @@ require (
 	github.com/goccy/go-yaml v1.18.0
 	github.com/google/uuid v1.6.0
 	github.com/joho/godotenv v1.5.1
-	github.com/nicksnyder/go-i18n/v2 v2.5.1
+	github.com/nicksnyder/go-i18n/v2 v2.6.0
 	github.com/samber/do/v2 v2.0.0-beta.7
 	github.com/samber/lo v1.49.1
 	golang.org/x/text v0.23.0
@@ -20,7 +20,7 @@ require (
 tool github.com/nicksnyder/go-i18n/v2/goi18n
 
 require (
-	github.com/BurntSushi/toml v1.4.0 // indirect
+	github.com/BurntSushi/toml v1.5.0 // indirect
 	github.com/disgoorg/json v1.2.0 // indirect
 	github.com/disgoorg/snowflake/v2 v2.0.3 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
