@@ -22,7 +22,7 @@ func MapAPIError(code int, message string) error {
 		return entity.ErrCodeExpired
 	case -2016:
 		return entity.ErrCoolDownRequired
-	case -2017:
+	case -2017, -2018:
 		return entity.ErrCodeAlreadyRedeemed
 	default:
 		return fmt.Errorf("HoYoverse API error: %s (%d)", message, code)
