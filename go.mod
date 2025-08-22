@@ -11,7 +11,7 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/joho/godotenv v1.5.1
 	github.com/nicksnyder/go-i18n/v2 v2.6.0
-	github.com/samber/do/v2 v2.0.0-beta.7
+	github.com/samber/do/v2 v2.0.0-rc1
 	github.com/samber/lo v1.51.0
 	golang.org/x/text v0.28.0
 	gorm.io/gorm v1.30.1
@@ -30,7 +30,7 @@ require (
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/ncruces/go-strftime v0.1.9 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
-	github.com/samber/go-type-to-string v1.7.0 // indirect
+	github.com/samber/go-type-to-string v1.8.0 // indirect
 	github.com/sasha-s/go-csync v0.0.0-20240107134140-fcbab37b09ad // indirect
 	golang.org/x/exp v0.0.0-20250305212735-054e65f0b394 // indirect
 	golang.org/x/sys v0.31.0 // indirect
