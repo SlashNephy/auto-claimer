@@ -7,7 +7,7 @@ require (
 	github.com/disgoorg/disgo v0.18.16
 	github.com/glebarez/sqlite v1.11.0
 	github.com/goccy/go-json v0.10.5
-	github.com/goccy/go-yaml v1.19.0
+	github.com/goccy/go-yaml v1.19.1
 	github.com/google/uuid v1.6.0
 	github.com/joho/godotenv v1.5.1
 	github.com/nicksnyder/go-i18n/v2 v2.6.0
