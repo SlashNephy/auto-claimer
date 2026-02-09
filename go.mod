@@ -13,7 +13,7 @@ require (
 	github.com/nicksnyder/go-i18n/v2 v2.6.1
 	github.com/samber/do/v2 v2.0.0
 	github.com/samber/lo v1.52.0
-	golang.org/x/text v0.33.0
+	golang.org/x/text v0.34.0
 	gorm.io/gorm v1.31.1
 )
 
