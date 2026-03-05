@@ -4,7 +4,7 @@ go 1.24.1
 
 require (
 	github.com/caarlos0/env/v11 v11.4.0
-	github.com/disgoorg/disgo v0.18.16
+	github.com/disgoorg/disgo v0.19.2
 	github.com/glebarez/sqlite v1.11.0
 	github.com/goccy/go-json v0.10.5
 	github.com/goccy/go-yaml v1.19.2
@@ -21,7 +21,8 @@ tool github.com/nicksnyder/go-i18n/v2/goi18n
 
 require (
 	github.com/BurntSushi/toml v1.6.0 // indirect
-	github.com/disgoorg/json v1.2.0 // indirect
+	github.com/disgoorg/json/v2 v2.0.0 // indirect
+	github.com/disgoorg/omit v1.0.0 // indirect
 	github.com/disgoorg/snowflake/v2 v2.0.3 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/glebarez/go-sqlite v1.22.0 // indirect
@@ -34,7 +35,7 @@ require (
 	github.com/sasha-s/go-csync v0.0.0-20240107134140-fcbab37b09ad // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/exp v0.0.0-20250305212735-054e65f0b394 // indirect
-	golang.org/x/sys v0.31.0 // indirect
+	golang.org/x/sys v0.41.0 // indirect
 	modernc.org/libc v1.61.13 // indirect
 	modernc.org/mathutil v1.7.1 // indirect
 	modernc.org/memory v1.9.1 // indirect
