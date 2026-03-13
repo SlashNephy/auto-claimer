@@ -1,6 +1,6 @@
 module github.com/SlashNephy/auto-claimer
 
-go 1.24.1
+go 1.25.0
 
 require (
 	github.com/caarlos0/env/v11 v11.4.0
@@ -13,7 +13,7 @@ require (
 	github.com/nicksnyder/go-i18n/v2 v2.6.1
 	github.com/samber/do/v2 v2.0.0
 	github.com/samber/lo v1.53.0
-	golang.org/x/text v0.34.0
+	golang.org/x/text v0.35.0
 	gorm.io/gorm v1.31.1
 )
 
