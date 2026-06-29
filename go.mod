@@ -14,7 +14,7 @@ require (
 	github.com/samber/do/v2 v2.0.0
 	github.com/samber/lo v1.53.0
 	golang.org/x/text v0.38.0
-	gorm.io/gorm v1.31.1
+	gorm.io/gorm v1.31.2
 )
 
 tool github.com/nicksnyder/go-i18n/v2/goi18n
