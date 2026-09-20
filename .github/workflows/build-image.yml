@@ -1,0 +1,22 @@
+name: 'Build Image'
+
+on:
+  push:
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+  actions: read
+  security-events: write
+
+jobs:
+  build:
+    uses: SlashNephy/actions/.github/workflows/build-docker-image.yml@70aa7999543c0745815c8233fd18fc1759748f6c # v1.0.0
+    with:
+      image-name: ghcr.io/slashnephy/auto-claimer
+      image-platforms: linux/amd64
+      dispatch-update-image-digest: true
+    secrets:
+      dispatch-app-private-key: ${{ secrets.DISPATCH_APP_PRIVATE_KEY }}
